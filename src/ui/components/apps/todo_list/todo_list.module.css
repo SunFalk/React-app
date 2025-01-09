@@ -1,0 +1,125 @@
+.task_entry_div {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0px 30px 0px;
+}
+
+.task_entry {
+    flex-grow: 1;
+    font-size:12px;
+    height: 1.5em;
+    padding-left: 25px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    background: linear-gradient(to right, lightgray 20px, white 20px);
+}
+
+.task_entry:focus {
+    border: 2px solid rgb(138, 138, 138);
+    background: linear-gradient(to right, rgb(138, 138, 138) 20px, white 20px);
+    outline: none;
+}
+
+.task_desc_entry {
+    flex-grow: 1;
+    font-size:12px;
+    height: 1.5em;
+    margin: 0px 10px 0px 0px;
+    padding-left: 25px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    background: linear-gradient(to right, lightgray 20px, white 20px);
+}
+
+.task_desc_entry:focus {
+    border: 2px solid rgb(138, 138, 138);
+    background: linear-gradient(to right, rgb(138, 138, 138) 20px, white 20px);
+    outline: none;
+}
+
+#add_btn {
+    margin: 0px 30px 0px 30px;
+}
+
+#task_list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 150px;
+    max-height: 400px;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.task {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px 0px;
+    align-items: center;
+}
+
+@keyframes show_tooltip {
+    0% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hide_tooltip {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.tooltip {
+    opacity: 0;
+    position: absolute;
+    top: -20px;
+    text-align:start;
+    font-size: 12px;
+    color:#eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color:#777;
+}
+
+.tooltip_activating {
+    animation: show_tooltip 0.8s forwards;
+}
+
+.tooltip_active {
+    opacity: 1;
+}
+
+.tooltip_deactivating {
+    animation: hide_tooltip 0.4s forwards;
+}
+
+.task_name {
+    text-align: start;
+    flex-grow: 1;
+    max-width: calc(100% - 130px);
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+}
+
+.remove_btn {
+    width: 70px;
+    margin: 0px 30px 0px 30px;
+    height: fit-content;
+}

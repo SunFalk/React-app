@@ -1,0 +1,23 @@
+.notepad_div {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notepad {
+    resize: none;
+    width: stretch;
+    height: stretch;
+    border-width: 3px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: normal;
+    background-color: #eee;
+}
+
+.save_btn {
+    margin-top: 15px;
+    width: 75px;
+    height: 35px;
+}

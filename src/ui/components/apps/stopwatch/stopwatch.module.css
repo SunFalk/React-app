@@ -1,0 +1,78 @@
+.stopwatch_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#stopwatch_btns_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+}
+
+#stopwatch_btns_div button{
+    font-size: 15px;
+    padding: 0px 20px;
+}
+
+.stopwatch_circle {
+    position: relative;
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid darkgray;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time_display {
+    color: #77f;
+    width: stretch;
+    transform: translateY(30px);
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 1;
+}
+
+@keyframes pointer_rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pointer {
+    position: absolute;
+    width: 5px;
+    height: 90px;
+    clip-path: polygon(2px 0%, 4px 0%, 100% 100%, 100% 105%, 0% 105%, 0% 100%);
+    background-color: black;
+    bottom: 50%;
+    left: calc(50% - 2.5px);
+    transform-origin: 50% 100%;
+}
+
+.pointer::before {
+    content: '';
+    background-color: darkgray;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -2.5px;
+    left: 0;
+}
+
+.onRotation {
+    animation: pointer_rotation 60s linear infinite;
+}
+
+.onPausedRotation {
+    animation-play-state: paused;
+}

@@ -1,0 +1,54 @@
+#chessBoardDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#chess_status {
+    margin: 15px;
+}
+
+#chessBoard {
+    border: 5px solid #888;
+    width: 480px;
+    height: 480px;
+    border-collapse: collapse;
+    margin: 35px;
+}
+
+.cell {
+    width: calc(100% / 8);
+    height: calc(100% / 8);
+}
+
+.cell > :first-child {
+    display: inline-block;
+    padding: 3px;
+    pointer-events: none;
+}
+
+.darkCell {
+    background-color: #a9a9a9;
+}
+
+.lightCell {
+    background-color: #ffffff;
+}
+
+.highlighted {
+    background-color: rgba(0, 0, 255, 0.5);
+    border: 2px solid rgba(50, 50, 255, 0.1);
+}
+
+.clickable {
+    cursor: pointer;
+    border: 1px, solid, rgba(0, 0, 0, 0.1);
+
+}
+
+#controlBtn {
+    padding: 6px;
+    margin-bottom: 6px;
+}

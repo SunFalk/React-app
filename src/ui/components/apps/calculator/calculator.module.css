@@ -1,0 +1,39 @@
+
+.buttons_table {
+    width: stretch;
+    height: 350px;
+    margin: 10px 10px 10px 10px;
+}
+
+.button {
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    background-color: #fff;
+    border-color: #ccc;
+    border-style:outset;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+
+.button:hover {
+    background-color: #ccc;
+    border-color: #bbb;
+}
+
+.button:active {
+    border-style: inset;
+}
+
+.calculator_input {
+    margin: 10px 5px;
+    height: 60px;
+    width: 75%;
+    font-size: 50px;
+    border-width: 1px;
+    border-color: #dfdfdf;
+    border-style: groove;
+    background-color: #f0f0f0;
+    pointer-events: none;
+}
