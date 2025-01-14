@@ -2,8 +2,20 @@ import React, {useEffect, useState} from 'react';
 import s from './calculator.module.css';
 
 function Calculator() {
+    useEffect(() => {
+        document.title = 'Calculator'
+        document.addEventListener('keypress', handeKeyPress)
+        return () => {
+            document.removeEventListener('keypress', handeKeyPress)
+        }
+    });
+
     const [input, setInput] = useState("");
-    
+
+    /**
+     * Handle button pressed.
+     * @param {string} button - The button pressed
+     */
     function onButtonPressed(button) {
         const buttons = [
                      '<-', 'c',
@@ -60,6 +72,10 @@ function Calculator() {
         }
     }
 
+    /**
+     * Calculate the expression input and show it on the input display.
+     * If an error occurs, clear the input.
+     */
     function calculate() {
         try {
             let evaluate = input;
@@ -77,27 +93,26 @@ function Calculator() {
         }
     }
 
+    /**
+     * Handle the keypress event.
+     * If the key is a number, letter or operator, call the onButtonPressed function.
+     * If the key is Backspace (string with just one space in name), call the onButtonPressed function with the '<-' button.
+     * Otherwise, nothing happens.
+     * @param {KeyboardEvent} event
+     */
     function handeKeyPress(event) {
         const key = event.key;
 
-        if (key === 'c') {
+        // eslint-disable-next-line
+        if (key === 'c' || /[0-9+\-*\/\.\=]/.test(key)) {
             onButtonPressed(key);
         }
         else if (key === ' ') { // Space
             onButtonPressed('<-');
-        } // eslint-disable-next-line
-        else if (/[0-9+\-*\/\.\=]/.test(key)) {
-            onButtonPressed(key);
-        }
-    }
+        };
+    };
 
-    useEffect(() => {
-        document.title = 'Calculator'
-        document.addEventListener('keypress', handeKeyPress)
-        return () => {
-            document.removeEventListener('keypress', handeKeyPress)
-        }
-    })
+    
     
     return (
         <>

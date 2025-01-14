@@ -21,6 +21,9 @@ function Stopwatch () {
         };
     })
 
+    /**
+     * Start the main loop that run in same frames per second (fps) of your machine.
+     */
     function start_loop() {
         let last_time = 0;
 
@@ -34,16 +37,28 @@ function Stopwatch () {
         loop_ref.current = requestAnimationFrame(updateState);
     }
 
+    /**
+     * Callback called in each frame of the main loop.
+     * It check if the stopwatch has started and if so, it update the time.
+     * @param {number} delta - Value of the time interval between frames.
+     */
     function _process(delta) {
         if (started) {
             updateStopwatch(delta);
         }
     }
 
+    /**
+     * Start the stopwatch.
+     */
     function startStopwatch() {
         started = true;
     }
 
+    /**
+     * Update the stopwatch time by the delta value.
+     * @param {number} delta - Value of the time interval between frames.
+     */
     function updateStopwatch(delta) {
         seconds = seconds + delta;
         minutes = Math.floor(seconds / 60);
@@ -52,10 +67,16 @@ function Stopwatch () {
         display.current.innerHTML = time;
     }
 
+    /**
+     * Stop the stopwatch.
+     */
     function stopStopwatch() {
         started = false;
     }
 
+    /**
+     * Reset the stopwatch's time.
+     */
     function resetStopwatch() {;
         pointer.current.style.transform = 'rotate(0deg)';
         started = false;

@@ -10,6 +10,9 @@ function TodoList() {
     let [count, setCount] = useState(0);
 
 
+    /**
+     * Add a task with the name and description write on the input fields
+     */
     function add_task() {
         let task_name = document.getElementById('task_name').value;
         let task_desc = document.getElementById('task_description').value
@@ -24,10 +27,19 @@ function TodoList() {
         setCount(count + 1);
     };
 
+    /**
+     * Remove a task with the matching id.
+     * @param {number} id - The id of the task.
+     */
     function remove_task(id) {
         setTasks((old_list) => old_list.filter(task => task.id !== id));
     };
 
+    /**
+     * Handle mouse enter event on the task name. if the mouse houver the task name
+     * for some time, a tooltip is showed.
+     * @param {MouseEvent} e - The event.
+     */
     function _onMouseEnter(e) {
         let parent = e.target.parentElement;
         let tooltip = parent.querySelector('.' + s.tooltip);
@@ -44,6 +56,11 @@ function TodoList() {
         }
     }
 
+    /**
+     * Handle mouse leave event on the task name. if the mouse leave the task name,
+     * the visible tooltip is hidden. If none tooltip is showed yet, the tooltip animation is interrupted.
+     * @param {MouseEvent} e - The event.
+     */
     function _onMouseLeave(e) {
         let parent = e.target.parentElement;
         let tooltip = parent.querySelector('.' + s.tooltip);

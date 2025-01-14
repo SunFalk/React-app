@@ -1,6 +1,9 @@
 import {React, useRef, useEffect} from 'react';
 import s from './chess.module.css';
 
+// Notice that this app is not complete and some features are missing.
+// That was my fist try making a chess game and my first trying making a game in javascript.
+
 function Chess() {
     const TABLE_LENGTH = 8;
     const PIECES = {
@@ -25,6 +28,10 @@ function Chess() {
         document.title = 'Chess';
     });
 
+    /**
+     * Start the game when "start" is pressed.
+     * @param {MouseEvent} event - The mouse click.
+     */
     function onClickStart(event) {
         let btn = event.target;
 
@@ -34,7 +41,12 @@ function Chess() {
         };
     };
 
-    function getCellElementByIndex(row, cell) {
+    /**
+     * Get a cell element in the document by its position in the table and return it.
+     * @param {number} row - Row of the element.
+     * @param {number} column - Column where the cell is.
+     */
+    function getCellElementByPosition(row, column) {
         let rows = Array.from(chess_table.current.firstChild.children);
         let cells;
         try {
@@ -45,7 +57,7 @@ function Chess() {
         };
         let element;
         try {
-            element = cells[cell];
+            element = cells[column];
         } catch (err) {
             console.log("An error has ocurred: " + err);
             return null;
@@ -53,6 +65,10 @@ function Chess() {
         return element;
     };
 
+    /**
+     * Initiate the chess table in it's default state.
+     * It iterate by each cell in the table and prepare each cell inside TABLE_LENGTH.
+     */
     function initTable() {
         table = [];
         for (let i = 0; i < TABLE_LENGTH; i++) {
@@ -144,6 +160,9 @@ function Chess() {
         }
     };
 
+    /**
+     * Update the pieces image of each cell, showing what piece is in each cell or clean it if none.
+     */
     function updatePiecesImage() {
         let rows = Array.from(chess_table.current.firstChild.children);
         rows.forEach((row, i) => {
@@ -170,6 +189,9 @@ function Chess() {
         });
     };
 
+    /**
+     * Start the chess game by initializing the table, updating the images and cells interactions.
+     */
     function start() {
         initTable();
         updatePiecesImage();
@@ -179,6 +201,9 @@ function Chess() {
         started = true;
     };
 
+    /**
+     * update each cell interaction with the player based if the cell is empty or not.
+     */
     function updateCellsInteraction() {
         let rows = Array.from(chess_table.current.firstChild.children);
         rows.forEach((row, i) => {
@@ -201,6 +226,9 @@ function Chess() {
         });
     };
 
+    /**
+     * Call the next turn.
+     */
     function nextTurn() {
         if (turn_of === "white") {
             turn_of = "black";
@@ -212,6 +240,11 @@ function Chess() {
         updateCellsInteraction();
     };
 
+    /**
+     * Handle click on cell position.
+     * @param {number} row - Row of the clicked cell.
+     * @param {number} cell - Column of the clicked cell.
+     */
     function onClick(row, cell) {
         if (started === false) {return};
 
@@ -247,6 +280,9 @@ function Chess() {
         }; 
     };
 
+    /**
+     * Get all the possible cells to move based on the current selected piece type.
+     */
     function getMovementCells() {
         let cells = []
         switch (selected_piece[0].type) {
@@ -279,6 +315,10 @@ function Chess() {
         highlightCells(cells);
     };
 
+    /**
+     * Get the pawn possible movements and return it.
+     * @param {object} pawn - The pawn object.
+     */
     function getPawnMovements(pawn) {
         let cells = [];
         let pos = pawn.position;
@@ -320,6 +360,10 @@ function Chess() {
         return cells
     };
 
+    /**
+     * Get the rook possible movements and return it.
+     * @param {object} rook - The rook object.
+     */
     function getRookMovements(rook) {
         let cells = [];
         let pos = rook.position;
@@ -375,6 +419,10 @@ function Chess() {
         return cells;
     };
 
+    /**
+     * Get the knight possible movements and return it.
+     * @param {object} knight - The knight object.
+     */
     function getKnightMovements(knight) {
         let cells = [];
         let pos = knight.position;
@@ -398,6 +446,10 @@ function Chess() {
         return cells;
     };
 
+    /**
+     * Get the bishop possible movements and return it.
+     * @param {object} bishop - The bishop object.
+     */
     function getBishopMovements(bishop) {
         let cells = [];
         let pos = bishop.position;
@@ -457,6 +509,10 @@ function Chess() {
         return cells;
     }
 
+    /**
+     * Get the queen possible movements and return it.
+     * @param {object} queen - The queen object.
+     */
     function getQueenMovements(queen) {
         let cells = [];
 
@@ -465,6 +521,10 @@ function Chess() {
         return cells;
     }
 
+    /**
+     * Get the king possible movements and return it.
+     * @param {object} king - The king object.
+     */
     function getKingMovements(king) {
         let cells = [];
         let pos = king.position;
@@ -487,6 +547,9 @@ function Chess() {
         return cells;
     }
 
+    /**
+     * Remove all highlighted from the cells on the table.
+     */
     function removeHighlightedCells() {
         let rows = Array.from(chess_table.current.firstChild.children);
         rows.forEach((row, i) => {
@@ -499,18 +562,27 @@ function Chess() {
         });
     };
 
+    /**
+     * Highlight the cells passed as arguments.
+     * @param {object} cells - A dictionary containing two position numbers: the row and the column.
+     */
     function highlightCells(cells) {
         removeHighlightedCells();
 
         if (cells.length === 0) {return};
         cells.forEach((coords) => {
-            let element = getCellElementByIndex(coords[0], coords[1]);
+            let element = getCellElementByPosition(coords[0], coords[1]);
             if (!element.classList.contains(s.highlighted)) {
                 element.classList.add(s.highlighted);
             };
         })
     };
 
+    /**
+     * Move the piece to a especified position in the table.
+     * @param {object} piece - The piece to be moved.
+     * @param {number} pos - The target position.
+     */
     function movePieceTo(piece, pos) {
         if (!Array.isArray(pos) || pos.length !== 2 || typeof piece !== "object") {return};
 
@@ -526,6 +598,13 @@ function Chess() {
         removeHighlightedCells();
     };
 
+    /**
+     * Move the piece to a especified position in the table.
+     * Different from the movePieceTo, this function handle attack events,
+     * such as detecting if the enemy king was attacked to end the game.
+     * @param {object} piece - The piece to be moved.
+     * @param {number} pos - The target position.
+     */
     function attackPieceAt(piece, pos) {
         if (!Array.isArray(pos) || pos.length !== 2 || typeof piece !== "object") {return};
         
@@ -548,6 +627,11 @@ function Chess() {
         return false
     };
 
+    /**
+     * End the game, receiving the winner as a param and stoping all the game flow.
+     * Called when the game as ended.
+     * @param {string} winner - The winner color.
+     */
     function gameEnded(winner) {
         let message = `The game is ended. The winner is ${winner === 'white' ? 'white' : 'black'}`;
         chess_status.current.innerHTML = message;
@@ -558,6 +642,10 @@ function Chess() {
         btn.innerHTML = 'Restart';
     };
 
+    /**
+     * Disable all remaining pieces on the table. This function just alter the astetic aspect of the cells,
+     * no functionality is disabled or altered.
+     */
     function disableAllPieces() {
         let rows = Array.from(chess_table.current.firstChild.children);
         rows.forEach((row, i) => {
@@ -570,6 +658,13 @@ function Chess() {
         });
     };
 
+    /**
+     * Helper function that compare arrays.
+     * It just work when the arrays have primitive values and don't have objects inside them.
+     * @param {array} arr1 - The first array.
+     * @param {array} arr2 - The second array.
+     * @returns {boolean} - Return true if the two arrays contains the same values, else return false.
+     */
     function compareArrays(arr1, arr2) {
         if (arr1.length !== arr2.length) {return false};
 
@@ -579,6 +674,13 @@ function Chess() {
         return true;
     };
 
+    /**
+     * Helper function that search in passed array for a specific array inside it.
+     * The array you want to find must NOT have any object inside of it.
+     * @param {array} array - The array you want to search in.
+     * @param {array} find_array - The array you want to find.
+     * @returns {boolean} - Return true if an array that match the find_array was found inside of the array.
+     */
     function arrayInArray(array, find_array) {
         if (!Array.isArray(array) || !Array.isArray(find_array)) {return false};
         if (array.length === 0 || find_array.length === 0) {return false};

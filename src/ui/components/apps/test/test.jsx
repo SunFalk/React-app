@@ -1,6 +1,8 @@
 import React from 'react'; // eslint-disable-next-line
 import s from './test.module.css'
 
+// This is not a component neither a page, is just a file for testing things before applying to the real ones.
+
 function Test() {
     React.useEffect(() => {
         document.title = "Test"
